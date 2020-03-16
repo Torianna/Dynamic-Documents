@@ -78,7 +78,7 @@
                 <div class="card-header">
                     Add product to database
                 </div>
-                <form name="myform" onsubmit="return validateForm()" method="post">
+                <form id="form" name="myform" onsubmit="alert('Success');" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"  aria-describedby="nameStatus" required onblur="nameValidation()">
@@ -125,7 +125,7 @@
                         <label>Rate </label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                   value="option1">
+                                   value="option1" checked>
                             <label class="form-check-label" for="inlineRadio1">1</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -151,13 +151,15 @@
 
                     </div>
 
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">Example file input</label>
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                        </div>
+                    <div class="form-group">
+                        <label>Name of the photo</label>
+                        <input id="photo" name="photo" type="text" class="form-control" placeholder="Photo" >
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button value="submit" type="submit" class="btn btn-primary">Submit</button>
                 </form>
+
+
             </div>
         </div>
         <div class="col">
@@ -185,5 +187,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

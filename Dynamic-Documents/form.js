@@ -70,15 +70,14 @@ function priceValidation(){
   }
 }
 
-
 function codeValidation () {
   var code = document.getElementById("code");
-  var codeRegex = new RegExp("[0-9][a-zA-Z]{2}-[0-9][a-zA-Z]{2}")
+  var codeRegex = new RegExp("[0-9a-zA-Z]{2}\-[0-9a-zA-Z]{2}")
   if(code.value == "") {
     document.getElementById("codeStatus").innerHTML = "Code filed is required!";
     document.getElementById("codeStatus").style.display = "block";
     return false;
-  } else if(!codeRegex.test(code))
+  } else if(!codeRegex.test(code.value))
   {
     document.getElementById("codeStatus").innerHTML = "Code must have format XX-XX (letters and numbers)\"";
     document.getElementById("codeStatus").style.display = "block";
@@ -99,7 +98,7 @@ function nameValidation () {
     document.getElementById("nameStatus").innerHTML = "Name filed is required!";
     document.getElementById("nameStatus").style.display = "block";
     return false;
-  } else if(!regexName.test(name))
+  } else if(!regexName.test(name.value))
   {
     document.getElementById("nameStatus").innerHTML = "Name contains invalid characters ( 10 letters and spaces only!)";
     document.getElementById("nameStatus").style.display = "block";
@@ -121,3 +120,4 @@ function countBrutto() {
 
   document.getElementById('brutto').value = total;
 }
+
