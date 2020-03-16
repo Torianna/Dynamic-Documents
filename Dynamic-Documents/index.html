@@ -15,52 +15,7 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
 
-    <script>
-      function validateForm () {
-        var regexName = new RegExp("^[a-zA-Z]{0,10}$");
-        var codeRegex = new RegExp("[0-9][a-zA-Z]{2}-[0-9][a-zA-Z]{2}")
-        var priceRegex= new RegExp("[0-9]+.[0-9]{0,2}")
-        var name = document.forms["myform"]["name"].value;
-        var code = document.forms["myform"]["code"].value;
-        var price = document.forms["myform"]["price"].value;
-
-
-        var res = price.split(".");
-
-
-        if(res.length == 1 || res[1].length < 3) {
-          price = value.toFixed(2);
-          console.log(price);
-        }
-
-
-
-        if (name == null || name == "") {
-          alert("Name must not be blank");
-          return false;
-        } else if (!regexName.test(name)) {
-          alert("Name contains invalid characters ( 10 letters and spaces only!)");
-          return false;
-        } if (code == null || code == "") {
-          alert("Code must not be blank");
-          return false;
-        } else if (!codeRegex.test(code)) {
-          alert("Code must have format XX-XX (letters and numbers)");
-          return false;}
-
-          if (price == null || pricw == "") {
-            alert("Price must not be blank");
-            return false;
-          } else if (!priceRegex.test(price)) {
-            alert("Price must have contain numbers");
-            return false;
-        } else {
-          return true;
-        }
-
-      }
-    </script>
-
+    <script src="./form.js"></script>
 
 </head>
 
@@ -125,20 +80,22 @@
                 </div>
                 <form name="myform" onsubmit="return validateForm()" method="post">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input name="name" type="name" class="form-control" placeholder="Enter name">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"  aria-describedby="nameStatus" required onblur="nameValidation()">
+                        <span id="nameStatus" class="errorHeader">Name filed is required!</span>
                     </div>
                     <div class="form-group">
-                        <label>Code</label>
-                        <input name="code" class="form-control" placeholder="Enter code">
+                        <label for="code">Code</label>
+                        <input id="code" name="code" type="text" class="form-control" placeholder="Enter code" required aria-describedby="codeStatus" required onblur="codeValidation()">
+                        <span id="codeStatus" class="errorHeader">Code filed is required!</span>
                     </div>
                     <div class="form-group" >
-                        <label name="price">Netto price</label>
-                        <input type="number" class="form-control" placeholder="Enter netto price">
+                        <label for="price">Netto price</label>
+                        <input  id="price" name="price" type="number" class="form-control" placeholder="Enter netto price" required>
                     </div>
                     <div class="form-group">
                         <label>VAT</label>
-                        <input type="number" class="form-control" placeholder="Enter VAT value">
+                        <input type="number" class="form-control" placeholder="Enter VAT value" required>
                     </div>
                     <div class="form-group">
                         <label>Brutto price</label>
@@ -146,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="exampleFormControlSelect1" required>
                             <option>Book</option>
                             <option>Music</option>
                             <option>Film</option>
@@ -154,7 +111,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect2">Options</label>
-                        <select multiple class="form-control" id="exampleFormControlSelect2">
+                        <select multiple class="form-control" id="exampleFormControlSelect2" required>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>

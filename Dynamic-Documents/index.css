@@ -1,3 +1,7 @@
-.container{
-    height: 100%;
+.errorHeader {
+    //font-weight: bold;
+    color: red;
+    //visibility: hidden;
+    display: none;
 }
+
