@@ -91,16 +91,17 @@
                     </div>
                     <div class="form-group" >
                         <label for="price">Netto price</label>
-                        <input  id="price" name="price" type="number" class="form-control" placeholder="Enter netto price" required aria-describedby="priceStatus" onblur="priceValidation()">
+                        <input  id="price" name="price" type="number" class="form-control" placeholder="Enter netto price" required aria-describedby="priceStatus" onblur="priceValidation()" onchange="countBrutto()">
                         <span id="priceStatus" class="errorHeader">Price filed is required!</span>
                     </div>
                     <div class="form-group">
-                        <label>VAT</label>
-                        <input type="number" class="form-control" placeholder="Enter VAT value" required>
+                        <label for="vat">VAT(%)</label>
+                        <input id="vat" name="vat" type="number" class="form-control" placeholder="Enter VAT value" required aria-describedby="vatStatus" onblur="vatValidation()" onchange="countBrutto()">
+                        <span id="vatStatus" class="errorHeader">VAT filed is required!</span>
                     </div>
                     <div class="form-group">
                         <label>Brutto price</label>
-                        <input type="number" class="form-control" placeholder="Enter brutto price">
+                        <input id="brutto" name="brutto" type="number" class="form-control" placeholder="Brutto price" disabled>
                     </div>
                     <div class="form-group">
                         <label>Category</label>

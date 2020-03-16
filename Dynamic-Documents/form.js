@@ -15,17 +15,38 @@ function checkForm() {
 
   if(!nameValidation()) valid = false;
   if(!codeValidation()) valid = false;
-  // if(!emailValidate()) valid = false;
-  // if(!informationValidate()) valid = false;
+  if(!priceValidation()) valid = false;
+  if(!vatValidation()) valid = false;
   // if(!paymentValidate()) valid = false;
 
   //alert(valid);
   return valid;
 }
 
+function vatValidation () {
+  var vat = document.getElementById("vat");
+  var vatRegex= new RegExp("[0-9]+(.[0-9]){0,2}");
+
+  if(vat.value == "") {
+    document.getElementById("vatStatus").innerHTML = "VAT filed is required!";
+    document.getElementById("vatStatus").style.display = "block";
+    return false;
+  } else if(!vatRegex.test(vat.value))
+  {
+    document.getElementById("vatStatus").innerHTML = "VAT must have contain numbers";
+    document.getElementById("vatStatus").style.display = "block";
+    return false;
+  }
+  else {
+    document.getElementById("vatStatus").style.display = "none";
+    return true;
+  }
+}
+
+
 function priceValidation(){
   var price = document.getElementById("price");
-  var priceRegex= new RegExp("[0-9]+.[0-9]{0,2}");
+  var priceRegex= new RegExp("[0-9]+(.[0-9]){0,2}");
   var value = Number(price.value);
   var res = price.value.split(".");
 
@@ -90,3 +111,13 @@ function nameValidation () {
   }
 }
 
+function countBrutto() {
+  var price = parseFloat(document.getElementById('price').value);
+  var vat = parseFloat(document.getElementById('vat').value);
+  price = isNaN(price) ? 0 : price;
+  vat = isNaN(vat) ? 0 : vat;
+  var total = (price*(vat/100))+price;
+  console.log(total);
+
+  document.getElementById('brutto').value = total;
+}
