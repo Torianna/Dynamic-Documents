@@ -23,6 +23,33 @@ function checkForm() {
   return valid;
 }
 
+function priceValidation(){
+  var price = document.getElementById("price");
+  var priceRegex= new RegExp("[0-9]+.[0-9]{0,2}");
+  var value = Number(price.value);
+  var res = price.value.split(".");
+
+  if(res.length == 1 || res[1].length < 3) {
+    price.value = value.toFixed(2);
+  }
+
+  if(price.value == "") {
+    document.getElementById("priceStatus").innerHTML = "Price filed is required!";
+    document.getElementById("priceStatus").style.display = "block";
+    return false;
+  } else if(!priceRegex.test(price.value))
+  {
+    document.getElementById("priceStatus").innerHTML = "Price must have contain numbers";
+    document.getElementById("priceStatus").style.display = "block";
+    return false;
+  }
+  else {
+    document.getElementById("priceStatus").style.display = "none";
+    return true;
+  }
+}
+
+
 function codeValidation () {
   var code = document.getElementById("code");
   var codeRegex = new RegExp("[0-9][a-zA-Z]{2}-[0-9][a-zA-Z]{2}")
@@ -63,37 +90,3 @@ function nameValidation () {
   }
 }
 
-// function validateForm () {
-//   var regexName = new RegExp("^[a-zA-Z]{0,10}$");
-//   var codeRegex = new RegExp("[0-9][a-zA-Z]{2}-[0-9][a-zA-Z]{2}")
-//   var priceRegex= new RegExp("[0-9]+.[0-9]{0,2}")
-//   var name = document.forms["myform"]["name"].value;
-//   var code = document.forms["myform"]["code"].value;
-//   var price = document.forms["myform"]["price"].value;
-//
-//   var value = Number(price);
-//   var res = price.split(".");
-//
-//
-//   if(res.length == 1 || res[1].length < 3) {
-//     price = value.toFixed(2);
-//     console.log(price);
-//   }
-//
-//
-//
-//   } else if (!codeRegex.test(code)) {
-//     alert("Code must have format XX-XX (letters and numbers)");
-//     return false;}
-//
-//     if (price == null || pricw == "") {
-//       alert("Price must not be blank");
-//       return false;
-//     } else if (!priceRegex.test(price)) {
-//       alert("Price must have contain numbers");
-//       return false;
-//   } else {
-//     return true;
-//   }
-//
-// }
