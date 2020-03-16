@@ -121,3 +121,33 @@ function countBrutto() {
   document.getElementById('brutto').value = total;
 }
 
+// function addRow() {
+//   var table = document.getElementById('products');
+//   var row = document.createElement('tr');
+//   var td1 = document.createElement('td');
+//   var td2 = document.createElement('td');
+//   var td3 = document.createElement('td');
+//   var td4 = document.createElement('td');
+//   var td5 = document.createElement('td');
+//   var td6 = document.createElement('td');
+//   var td7 = document.createElement('td');
+//   var td8 = document.createElement('td');
+//   td1.innerHTML = document.getElementById('name').value;
+//   td2.innerHTML = document.getElementById('code').value;
+//   td3.innerHTML = document.getElementById('price').value;
+//   td4.innerHTML = document.getElementById('vat').value;
+//   td5.innerHTML = document.getElementById('brutto').value;
+//   td6.innerHTML = document.getElementById('category').value;
+//   td7.innerHTML = document.getElementById('rate').value;
+//   td8.innerHTML = document.getElementById('photo').value;
+//   row.appendChild(td1);
+//   row.appendChild(td2);
+//   row.appendChild(td3);
+//   row.appendChild(td4);
+//   row.appendChild(td5);
+//   row.appendChild(td6);
+//   row.appendChild(td7);
+//   row.appendChild(td8);
+//
+//   table.children[0].insertBefore(row, table.children[0].childNodes[1]);
+// }
