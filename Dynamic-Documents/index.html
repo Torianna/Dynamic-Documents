@@ -15,17 +15,39 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
 
-    <script src="./form.js"></script>
     <!-- load jQuery and tablesorter scripts -->
-    <script type="text/javascript" src="/path/to/jquery-latest.js"></script>
-    <script type="text/javascript" src="/path/to/jquery.tablesorter.js"></script>
-    <!-- tablesorter widgets (optional) -->
-    <script type="text/javascript" src="/path/to/jquery.tablesorter.widgets.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.js"></script>
 
     <script type="text/javascript">
+      // $(function() {
+      //   $("#products").tablesorter();
+      // });
+
       $(function() {
-        $("#products").tablesorter();
+
+        $("#products").tablesorter({ theme : 'blue', sortList: [[3,1],[0,0]] });
+
+        // Add two new rows using the "addRows" method
+        // the "update" method doesn't work here because not all
+        // rows are present in the table when the pager is applied
+        $('button').click(function() {
+          // add two rows
+          var row = '<tr><td>Frank</td><td>Smith</td><td>53</td><td>$39.95</td><td>22%</td><td>Mar 22, 2011 9:33 AM</td></tr>' +
+            '<tr><td>Inigo</td><td>Montoya</td><td>34</td><td>$19.99</td><td>15%</td><td>Sep 25, 1987 12:00PM</td></tr>',
+            $row = $(row),
+            // resort table using the current sort; set to false to prevent resort, otherwise
+            // any other value in resort will automatically trigger the table resort.
+            resort = true;
+          $('table')
+            .find('tbody').append($row)
+            .trigger('addRows', [$row, resort]);
+          return false;
+
+        });
+
       });
+
     </script>
 
 </head>
@@ -89,7 +111,7 @@
                 <div class="card-header">
                     Add product to database
                 </div>
-                <form id="form" name="myform" onsubmit="alert('Success');" onsubmit="addRows();" method="post">
+                <form id="form" name="myform" onsubmit="alert('Success');" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"  aria-describedby="nameStatus" required onblur="nameValidation()">
@@ -167,7 +189,7 @@
                         <input id="photo" name="photo" type="text" class="form-control" placeholder="Photo" >
                     </div>
 
-                    <button value="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <button value="submit" type="button" class="btn btn-primary">Submit</button>
                 </form>
 
 
@@ -203,37 +225,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-    </tr>
     </tbody>
 </table>
 
 <footer class="fixed-bottom">afffffffffffffffff</footer>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
+<!--        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+<!--        crossorigin="anonymous"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
 
 
 </body>
