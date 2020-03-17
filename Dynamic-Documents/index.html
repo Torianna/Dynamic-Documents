@@ -1,0 +1,290 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Dynamic Documents</title>
+    <meta name="description" content="Project for dynamic document classes in West Pomeranian University of Technology">
+    <meta name="author" content="Klaudia">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/theme.bootstrap_4.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="./form.js"></script>
+    <!-- load jQuery and tablesorter scripts -->
+    <script src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.widgets.js"></script>
+
+    <script type="text/javascript">
+
+      // $(function() {
+      //   $("#products").tablesorter();
+      // });
+
+      $(function () {
+        var nameArray = new Set([])
+
+
+        $('#products').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
+        })
+
+        // Add two new rows using the "addRows" method
+        // the "update" method doesn't work here because not all
+        // rows are present in the table when the pager is applied
+        $('button').click(function () {
+
+
+          var row = document.createElement('tr')
+          var td1 = document.createElement('td')
+          var td2 = document.createElement('td')
+          var td3 = document.createElement('td')
+          var td4 = document.createElement('td')
+          var td5 = document.createElement('td')
+          var td6 = document.createElement('td')
+          var td7 = document.createElement('td')
+          var td8 = document.createElement('td')
+          var name = document.getElementById('name').value
+          td1.innerHTML = document.getElementById('name').value
+          td2.innerHTML = document.getElementById('code').value
+          td3.innerHTML = document.getElementById('price').value
+          td4.innerHTML = document.getElementById('vat').value
+          td5.innerHTML = document.getElementById('brutto').value
+          td6.innerHTML = document.getElementById('category').value
+          td7.innerHTML = document.querySelector('[name="inlineRadioOptions"]:checked').value
+          td8.innerHTML = document.getElementById('photo').value
+          row.appendChild(td1)
+          row.appendChild(td2)
+          row.appendChild(td3)
+          row.appendChild(td4)
+          row.appendChild(td5)
+          row.appendChild(td6)
+          row.appendChild(td7)
+          row.appendChild(td8)
+
+          console.log(nameArray.size)
+
+
+          if (nameArray.has(name)) {
+            alert('Duplicate product')
+            return false
+          } else {
+            alert('Success')
+            nameArray.add(name)
+            $row = $(row),
+              // resort table using the current sort; set to false to prevent resort, otherwise
+              // any other value in resort will automatically trigger the table resort.
+              resort = true
+            $('table')
+              .find('tbody').append($row)
+              .trigger('addRows', [$row, resort])
+            return false
+          }
+        })
+      })
+
+    </script>
+
+</head>
+
+<body style="padding-top: 100px;">
+
+<div class="wrapper">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Shop</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="http://lcieszynski.zut.edu.pl/fileadmin/DPD/instrukcja_2019.pdf">Conspect</a>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-shopping-basket"></i>
+            </button>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" value="Submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+</div>
+
+<div class="container h-100 w-100">
+    <div class="row w-100">
+        <div class="col">
+            One of three columns
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Add product to database
+                </div>
+                <form id="form" name="myform" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"
+                               aria-describedby="nameStatus" required onblur="nameValidation()">
+                        <span id="nameStatus" class="errorHeader">Name filed is required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input id="code" name="code" type="text" class="form-control" placeholder="Enter code" required
+                               aria-describedby="codeStatus" required onblur="codeValidation()">
+                        <span id="codeStatus" class="errorHeader">Code filed is required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Netto price</label>
+                        <input id="price" name="price" type="number" class="form-control"
+                               placeholder="Enter netto price" required aria-describedby="priceStatus"
+                               onblur="priceValidation()" onchange="countBrutto()">
+                        <span id="priceStatus" class="errorHeader">Price filed is required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="vat">VAT(%)</label>
+                        <input id="vat" name="vat" type="number" class="form-control" placeholder="Enter VAT value"
+                               required aria-describedby="vatStatus" onblur="vatValidation()" onchange="countBrutto()">
+                        <span id="vatStatus" class="errorHeader">VAT filed is required!</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Brutto price</label>
+                        <input id="brutto" name="brutto" type="number" class="form-control" placeholder="Brutto price"
+                               disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="category" class="form-control" id="exampleFormControlSelect1" required>
+                            <option>Book</option>
+                            <option>Music</option>
+                            <option>Film</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Options</label>
+                        <select multiple class="form-control" id="exampleFormControlSelect2" required>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Rate </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                   value="1" checked>
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                   value="2">
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                                   value="3">
+                            <label class="form-check-label" for="inlineRadio3">3 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                                   value="option4">
+                            <label class="form-check-label" for="inlineRadio3">4 </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5"
+                                   value="5">
+                            <label class="form-check-label" for="inlineRadio3">5 </label>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Name of the photo</label>
+                        <input id="photo" name="photo" type="text" class="form-control" placeholder="Photo">
+                    </div>
+
+                    <button value="submit" type="button" class="btn btn-primary">Submit</button>
+                </form>
+
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Information about me
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Klaudia Góralska</h5>
+                    <p class="card-text">..........</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<table class="tablesorter table table-hover" id="products" >
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Code</th>
+        <th scope="col">Netto</th>
+        <th scope="col">VAT</th>
+        <th scope="col">Brutto</th>
+        <th scope="col">Category</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<footer class="fixed-bottom">afffffffffffffffff</footer>
+
+<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
+<!--        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+<!--        crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+</body>
+</html>
