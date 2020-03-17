@@ -34,10 +34,25 @@
         $('#products').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
         })
 
+        $('#priceLow').click(function() {
+          $('#products').find('th:eq(2)').trigger("sorton",[[0,0]]);
+        });
+
+        $('#priceHigh').click(function() {
+          $('#products').find('th:eq(2)').trigger("sorton",[[0,1]]);
+        });
+
+        $('#rateLow').click(function() {
+          $('#products').find('th:eq(6)').trigger("sorton",[[0,0]]);
+        });
+
+        $('#rateHigh').click(function() {
+          $('#products').find('th:eq(6)').trigger("sorton",[[0,1]]);
+        });
         // Add two new rows using the "addRows" method
         // the "update" method doesn't work here because not all
         // rows are present in the table when the pager is applied
-        $('button').click(function () {
+        $('#submit').click(function () {
 
 
           var row = document.createElement('tr')
@@ -87,6 +102,7 @@
           }
         })
       })
+
 
     </script>
 
@@ -219,7 +235,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
-                                   value="option4">
+                                   value="4">
                             <label class="form-check-label" for="inlineRadio3">4 </label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -235,7 +251,7 @@
                         <input id="photo" name="photo" type="text" class="form-control" placeholder="Photo">
                     </div>
 
-                    <button value="submit" type="button" class="btn btn-primary">Submit</button>
+                    <button id="submit" value="submit" type="button" class="btn btn-primary">Submit</button>
                 </form>
 
 
@@ -256,17 +272,32 @@
 </div>
 
 <br>
+
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Table filters
+        <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a id="priceLow">Price from lower</a></li>
+        <li><a id="priceHigh">Price from higher</a></li>
+        <li><a id="rateHigh">Rate from lower</a></li>
+        <li><a id="rateLow">Rate from higher</a></li>
+        <li><a id="nameLow">Name from A</a></li>
+        <li><a id="nameHigh">Name from Z</a></li>
+    </ul>
+</div>
+
+
 <table class="tablesorter table table-hover" id="products" >
     <thead>
     <tr>
         <th scope="col">Name</th>
-        <th scope="col">Code</th>
-        <th scope="col">Netto</th>
-        <th scope="col">VAT</th>
-        <th scope="col">Brutto</th>
-        <th scope="col">Category</th>
+        <th scope="col" data-sorter="false">Code</th>
+        <th scope="col" id="netto">Netto</th>
+        <th scope="col"data-sorter="false">VAT</th>
+        <th scope="col"data-sorter="false">Brutto</th>
+        <th scope="col"data-sorter="false">Category</th>
         <th scope="col">Rate</th>
-        <th scope="col">Photo</th>
+        <th scope="col"data-sorter="false">Photo</th>
     </tr>
     </thead>
     <tbody>
