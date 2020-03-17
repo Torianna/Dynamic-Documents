@@ -20,56 +20,70 @@
     <script type="text/javascript" src="jquery.tablesorter.js"></script>
 
     <script type="text/javascript">
+
       // $(function() {
       //   $("#products").tablesorter();
       // });
 
-      $(function() {
+      $(function () {
+        var nameArray = new Set([])
 
-        $("#products").tablesorter({ theme : 'blue', sortList: [[3,1],[0,0]] });
+
+        $('#products').tablesorter({ theme: 'blue', sortList: [[3, 1], [0, 0]] })
 
         // Add two new rows using the "addRows" method
         // the "update" method doesn't work here because not all
         // rows are present in the table when the pager is applied
-        $('button').click(function() {
+        $('button').click(function () {
 
-          var row = document.createElement('tr');
-          var td1 = document.createElement('td');
-          var td2 = document.createElement('td');
-          var td3 = document.createElement('td');
-          var td4 = document.createElement('td');
-          var td5 = document.createElement('td');
-          var td6 = document.createElement('td');
-          var td7 = document.createElement('td');
-          var td8 = document.createElement('td');
-          td1.innerHTML = document.getElementById('name').value;
-          td2.innerHTML = document.getElementById('code').value;
-          td3.innerHTML = document.getElementById('price').value;
-          td4.innerHTML = document.getElementById('vat').value;
-          td5.innerHTML = document.getElementById('brutto').value;
-          td6.innerHTML = document.getElementById('category').value;
-          td7.innerHTML = document.querySelector('[name="inlineRadioOptions"]:checked').value;
-          td8.innerHTML = document.getElementById('photo').value;
-          row.appendChild(td1);
-          row.appendChild(td2);
-          row.appendChild(td3);
-          row.appendChild(td4);
-          row.appendChild(td5);
-          row.appendChild(td6);
-          row.appendChild(td7);
-          row.appendChild(td8);
+
+          var row = document.createElement('tr')
+          var td1 = document.createElement('td')
+          var td2 = document.createElement('td')
+          var td3 = document.createElement('td')
+          var td4 = document.createElement('td')
+          var td5 = document.createElement('td')
+          var td6 = document.createElement('td')
+          var td7 = document.createElement('td')
+          var td8 = document.createElement('td')
+          var name = document.getElementById('name').value
+          td1.innerHTML = document.getElementById('name').value
+          td2.innerHTML = document.getElementById('code').value
+          td3.innerHTML = document.getElementById('price').value
+          td4.innerHTML = document.getElementById('vat').value
+          td5.innerHTML = document.getElementById('brutto').value
+          td6.innerHTML = document.getElementById('category').value
+          td7.innerHTML = document.querySelector('[name="inlineRadioOptions"]:checked').value
+          td8.innerHTML = document.getElementById('photo').value
+          row.appendChild(td1)
+          row.appendChild(td2)
+          row.appendChild(td3)
+          row.appendChild(td4)
+          row.appendChild(td5)
+          row.appendChild(td6)
+          row.appendChild(td7)
+          row.appendChild(td8)
+
+          console.log(nameArray.size)
+
+
+          if (nameArray.has(name)) {
+            alert('Duplicate product')
+            return false
+          } else {
+            alert('Success')
+            nameArray.add(name)
             $row = $(row),
-            // resort table using the current sort; set to false to prevent resort, otherwise
-            // any other value in resort will automatically trigger the table resort.
-            resort = true;
-          $('table')
-            .find('tbody').append($row)
-            .trigger('addRows', [$row, resort]);
-          return false;
-
-        });
-
-      });
+              // resort table using the current sort; set to false to prevent resort, otherwise
+              // any other value in resort will automatically trigger the table resort.
+              resort = true
+            $('table')
+              .find('tbody').append($row)
+              .trigger('addRows', [$row, resort])
+            return false
+          }
+        })
+      })
 
     </script>
 
@@ -134,30 +148,36 @@
                 <div class="card-header">
                     Add product to database
                 </div>
-                <form id="form" name="myform" onsubmit="alert('Success');" method="post">
+                <form id="form" name="myform" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"  aria-describedby="nameStatus" required onblur="nameValidation()">
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"
+                               aria-describedby="nameStatus" required onblur="nameValidation()">
                         <span id="nameStatus" class="errorHeader">Name filed is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="code">Code</label>
-                        <input id="code" name="code" type="text" class="form-control" placeholder="Enter code" required aria-describedby="codeStatus" required onblur="codeValidation()">
+                        <input id="code" name="code" type="text" class="form-control" placeholder="Enter code" required
+                               aria-describedby="codeStatus" required onblur="codeValidation()">
                         <span id="codeStatus" class="errorHeader">Code filed is required!</span>
                     </div>
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label for="price">Netto price</label>
-                        <input  id="price" name="price" type="number" class="form-control" placeholder="Enter netto price" required aria-describedby="priceStatus" onblur="priceValidation()" onchange="countBrutto()">
+                        <input id="price" name="price" type="number" class="form-control"
+                               placeholder="Enter netto price" required aria-describedby="priceStatus"
+                               onblur="priceValidation()" onchange="countBrutto()">
                         <span id="priceStatus" class="errorHeader">Price filed is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="vat">VAT(%)</label>
-                        <input id="vat" name="vat" type="number" class="form-control" placeholder="Enter VAT value" required aria-describedby="vatStatus" onblur="vatValidation()" onchange="countBrutto()">
+                        <input id="vat" name="vat" type="number" class="form-control" placeholder="Enter VAT value"
+                               required aria-describedby="vatStatus" onblur="vatValidation()" onchange="countBrutto()">
                         <span id="vatStatus" class="errorHeader">VAT filed is required!</span>
                     </div>
                     <div class="form-group">
                         <label>Brutto price</label>
-                        <input id="brutto" name="brutto" type="number" class="form-control" placeholder="Brutto price" disabled>
+                        <input id="brutto" name="brutto" type="number" class="form-control" placeholder="Brutto price"
+                               disabled>
                     </div>
                     <div class="form-group">
                         <label>Category</label>
@@ -209,7 +229,7 @@
 
                     <div class="form-group">
                         <label>Name of the photo</label>
-                        <input id="photo" name="photo" type="text" class="form-control" placeholder="Photo" >
+                        <input id="photo" name="photo" type="text" class="form-control" placeholder="Photo">
                     </div>
 
                     <button value="submit" type="button" class="btn btn-primary">Submit</button>
@@ -261,7 +281,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
 
 
 </body>
