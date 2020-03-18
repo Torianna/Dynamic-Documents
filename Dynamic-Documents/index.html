@@ -26,10 +26,13 @@
       // $(function() {
       //   $("#products").tablesorter();
       // });
+      // Delete row on delete button click
+      // Delete row on delete button click
+
+
 
       $(function () {
         var nameArray = new Set([])
-
 
         $('#products').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
         })
@@ -74,6 +77,7 @@
           var td6 = document.createElement('td')
           var td7 = document.createElement('td')
           var td8 = document.createElement('td')
+          var td9 = document.createElement('td')
           var name = document.getElementById('name').value
           td1.innerHTML = document.getElementById('name').value
           td2.innerHTML = document.getElementById('code').value
@@ -83,6 +87,45 @@
           td6.innerHTML = document.getElementById('category').value
           td7.innerHTML = document.querySelector('[name="inlineRadioOptions"]:checked').value
           td8.innerHTML = document.getElementById('photo').value
+
+
+          td9.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 30px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
+            "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" + "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none\"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>";
+
+
+          $(document).on("click", ".add", function(){
+            var empty = false;
+            var input = $(this).parents("tr").find('input[type="text"]');
+            input.each(function(){
+              if(!$(this).val()){
+                $(this).addClass("error");
+                empty = true;
+              } else{
+                $(this).removeClass("error");
+              }
+            });
+
+            $(this).parents("tr").find(".error").first().focus();
+            if(!empty){
+              input.each(function(){
+                $(this).parent("td").html($(this).val());
+              });
+              $(this).parents("tr").find(".add, .edit").toggle();
+            }
+          });
+            // Edit row on edit button click
+          $(document).on("click", ".edit", function(){
+            $(this).parents("tr").find("td:not(:last-child)").each(function(){
+              $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            });
+            $(this).parents("tr").find(".edit").toggle();;
+            $(this).parents("tr").find(".add").toggle();
+          });
+
+          $(document).on("click", ".delete", function(){
+            $(this).parents("tr").remove();
+          });
+
           row.appendChild(td1)
           row.appendChild(td2)
           row.appendChild(td3)
@@ -91,6 +134,7 @@
           row.appendChild(td6)
           row.appendChild(td7)
           row.appendChild(td8)
+          row.appendChild(td9)
 
           console.log(nameArray.size)
 
@@ -308,9 +352,11 @@
         <th scope="col"data-sorter="false">Category</th>
         <th scope="col">Rate</th>
         <th scope="col"data-sorter="false">Photo</th>
+        <th scope="col" data-sorter="false">Actions</th>
     </tr>
     </thead>
     <tbody>
+
     </tbody>
 </table>
 
