@@ -35,19 +35,29 @@
         })
 
         $('#priceLow').click(function() {
-          $('#products').find('th:eq(2)').trigger("sorton",[[0,0]]);
+          // $('#products').find('th:eq(2)').trigger("sort",{lockedOrder: 'asc'});
+          // $("#products").tablesorter({ sortList: [[0,0],});
+          $('#products').trigger("sorton",[[[2,0]]]);
         });
 
         $('#priceHigh').click(function() {
-          $('#products').find('th:eq(2)').trigger("sorton",[[0,1]]);
+          $('#products').trigger("sorton",[[[2,1]]]);
         });
 
         $('#rateLow').click(function() {
-          $('#products').find('th:eq(6)').trigger("sorton",[[0,0]]);
+          $('#products').trigger("sorton",[[[6,0]]]);
         });
 
         $('#rateHigh').click(function() {
-          $('#products').find('th:eq(6)').trigger("sorton",[[0,1]]);
+          $('#products').trigger("sorton",[[[6,1]]]);
+        });
+
+        $('#nameLow').click(function() {
+          $('#products').trigger("sorton",[[[0,0]]]);
+        });
+
+        $('#nameHigh').click(function() {
+          $('#products').trigger("sorton",[[[0,1]]]);
         });
         // Add two new rows using the "addRows" method
         // the "update" method doesn't work here because not all
@@ -277,12 +287,12 @@
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Table filters
         <span class="caret"></span></button>
     <ul class="dropdown-menu">
-        <li><a id="priceLow">Price from lower</a></li>
-        <li><a id="priceHigh">Price from higher</a></li>
-        <li><a id="rateHigh">Rate from lower</a></li>
-        <li><a id="rateLow">Rate from higher</a></li>
-        <li><a id="nameLow">Name from A</a></li>
-        <li><a id="nameHigh">Name from Z</a></li>
+        <li><a href="#" id="priceLow">Price from lowest</a></li>
+        <li><a href="#" id="priceHigh">Price from highest</a></li>
+        <li><a href="#" id="rateLow">Rate from lowest</a></li>
+        <li><a href="#" id="rateHigh">Rate from highest</a></li>
+        <li><a href="#" id="nameLow">Name from A</a></li>
+        <li><a href="#" id="nameHigh">Name from Z</a></li>
     </ul>
 </div>
 
