@@ -89,8 +89,10 @@
           td8.innerHTML = document.getElementById('photo').value
 
 
-          td9.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 30px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
-            "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" + "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none\"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>";
+          td9.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
+            "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" +
+            "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none \"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>"
+            + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\"><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
 
 
           $(document).on("click", ".add", function(){
