@@ -23,18 +23,14 @@
 
     <script type="text/javascript">
 
-      // $(function() {
-      //   $("#products").tablesorter();
-      // });
-      // Delete row on delete button click
-      // Delete row on delete button click
-
-
 
       $(function () {
         var nameArray = new Set([])
 
         $('#products').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
+        })
+
+        $('#basket').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
         })
 
         $('#priceLow').click(function() {
@@ -92,7 +88,7 @@
           td9.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
             "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" +
             "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none \"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>"
-            + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\"><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
+            + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\" onclick='call()'><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
 
 
           $(document).on("click", ".add", function(){
@@ -131,8 +127,10 @@
                 my_table.push($(this).html())
 
             });
-            localStorage.setItem("row", JSON.stringify(my_table));
+            my_table=my_table.toString()
+            localStorage.setItem("row", my_table);
             console.log(localStorage.getItem("row"))
+            alert("Add to basket")
           });
 
           $(document).on("click", ".delete", function(){
@@ -162,7 +160,7 @@
               // resort table using the current sort; set to false to prevent resort, otherwise
               // any other value in resort will automatically trigger the table resort.
               resort = true
-            $('table')
+            $('#products')
               .find('tbody').append($row)
               .trigger('addRows', [$row, resort])
             return false
@@ -205,13 +203,24 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Basket</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        ...
+                    <div class="modal-body" >
+                        <table class="tablesorter table table-hover" id="basket" >
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

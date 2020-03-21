@@ -5,6 +5,37 @@ window.onload = function() {
   // document.getElementById("informationInput").onblur = function() { informationValidate(); };
 }
 
+function call () {
+  var my_table=localStorage.getItem("row");
+  var table=my_table.split(",");
+  var name=table[0]
+  var price=table[4]
+ // table=[name,price,1]
+ // console.log(table)
+
+  var row = document.createElement('tr')
+  var td1 = document.createElement('td')
+  var td2 = document.createElement('td')
+  var td3 = document.createElement('td')
+  td1.innerHTML = name
+  td2.innerHTML = price
+  td3.innerHTML = "1"
+
+  row.appendChild(td1)
+  row.appendChild(td2)
+  row.appendChild(td3)
+
+  $row = $(row),
+    // resort table using the current sort; set to false to prevent resort, otherwise
+    // any other value in resort will automatically trigger the table resort.
+    resort = true
+  $('#basket')
+    .find('tbody').append($row)
+    .trigger('addRows', [$row, resort])
+  return false
+}
+
+
 function checkForm() {
 
   var valid = true;

@@ -5,3 +5,6 @@
     display: none;
 }
 
+.modal-backdrop {
+    z-index: 1020!important;
+}
