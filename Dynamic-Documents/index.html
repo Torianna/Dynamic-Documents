@@ -120,8 +120,19 @@
             $(this).parents("tr").find("td:not(:last-child)").each(function(){
               $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
             });
-            $(this).parents("tr").find(".edit").toggle();;
+            $(this).parents("tr").find(".edit").toggle();
             $(this).parents("tr").find(".add").toggle();
+          });
+
+          $(document).on("click", ".basket", function(){
+             var my_table = [] ;
+
+            $(this).parents("tr").find("td:not(:last-child)").each(function() {
+                my_table.push($(this).html())
+
+            });
+            localStorage.setItem("row", JSON.stringify(my_table));
+            console.log(localStorage.getItem("row"))
           });
 
           $(document).on("click", ".delete", function(){
