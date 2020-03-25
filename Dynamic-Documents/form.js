@@ -5,21 +5,49 @@ window.onload = function() {
   // document.getElementById("informationInput").onblur = function() { informationValidate(); };
 }
 
+var cos;
+
+// function sumRow() {
+//   var my_table = [] ;
+//
+//   $(this).parents("tr").find("td:not(:last-child)").each(function() {
+//     my_table.push($(this).html())
+//
+//   });
+//
+//   console.log(my_table)
+// }
+var priceMap = new Map();
+
+function countBasket (name,cos,count) {
+  var sum=cos*count
+  priceMap.delete(name)
+  priceMap.set(name,sum)
+  var value=priceMap.get(name)
+}
+
+
+
+
 function call () {
   var my_table=localStorage.getItem("row");
   var table=my_table.split(",");
   var name=table[0]
-  var price=table[4]
- // table=[name,price,1]
- // console.log(table)
+  cos=table[4]
+  priceMap.set(name,cos)
+  var value=priceMap.get(name)
+  console.log("priceMap przed countBasketem: "+value)
+  //priceTab.push(price)
+ // // table=[name,price,1]
+ // // console.log(table)
 
   var row = document.createElement('tr')
   var td1 = document.createElement('td')
   var td2 = document.createElement('td')
   var td3 = document.createElement('td')
   td1.innerHTML = name
-  td2.innerHTML = price
-  td3.innerHTML = "1"
+  td2.innerHTML = cos
+  td3.innerHTML = "<input id=\"count\" type=\"number\" min=\"0\" name=\"input\" placeholder=\"1\" style=\"width:50px; height:20px\" value='1' ' onchange='countBasket(name,cos,value)'>"
 
   row.appendChild(td1)
   row.appendChild(td2)
@@ -140,6 +168,12 @@ function nameValidation () {
     return true;
   }
 }
+
+// function countBasket () {
+//   var price = parseFloat(document.getElementById('price1').value);
+//   console.log(price)
+//
+// }
 
 function countBrutto() {
   var price = parseFloat(document.getElementById('price').value);

@@ -208,7 +208,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+
                     <div class="modal-body" >
+                        <form>
                         <table class="tablesorter table table-hover" id="basket" >
                             <thead>
                             <tr>
@@ -218,9 +220,23 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Delivery</label>
+                            <select class="form-control">
+                                <option selected value="10">Post - 10zł</option>
+                                <option value="15">Courier - 15zł</option>
+                                <option value="0">Personal Pickup - 0zł</option>
+                            </select>
+                        </div>
+                            <div class="form-group">
+                                <label>Summary:</label>
+                                <input id="summary" name="due" placeholder="Summary"
+                                       disabled>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
