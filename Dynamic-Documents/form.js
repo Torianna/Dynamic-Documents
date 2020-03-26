@@ -3,9 +3,12 @@ window.onload = function() {
   // document.myform.lastNameInput.onblur = lastNameValidate;
   // document.getElementById("emailInput").onblur = emailValidate;
   // document.getElementById("informationInput").onblur = function() { informationValidate(); };
+  document.getElementById('summary').value = " ";
 }
-
+//var nazwa;
 var cos;
+var suma;
+var sel;
 
 // function sumRow() {
 //   var my_table = [] ;
@@ -20,34 +23,52 @@ var cos;
 var priceMap = new Map();
 
 function countBasket (name,cos,count) {
-  var sum=cos*count
+  console.log("Nazwa: "+name.toString()+", price: "+cos+", ilosc: "+count)
+  sum=cos*count
   priceMap.delete(name)
   priceMap.set(name,sum)
   var value=priceMap.get(name)
+  countPriceMap()
+}
+
+function countPriceMap () {
+  suma=0;
+  sel=0
+  for (let value of priceMap.values()) {
+    suma+=parseFloat(value)
+  }
+  sel=document.getElementById('delivery').value
+  suma+=parseFloat(sel)
+  console.log("suma + sel"+suma)
+  document.getElementById('summary').value = suma;
+  suma=0
 }
 
 
+// function sumBasket () {
+//   countPriceMap()
+//   sel=document.getElementById('delivery').value
+//   suma+=parseFloat(sel)
+//   console.log("suma + sel"+suma)
+//   document.getElementById('summary').value = suma;
+// }
 
 
 function call () {
   var my_table=localStorage.getItem("row");
+  localStorage.removeItem("row")
   var table=my_table.split(",");
-  var name=table[0]
+  var nazwa=table[0]
   cos=table[4]
-  priceMap.set(name,cos)
-  var value=priceMap.get(name)
-  console.log("priceMap przed countBasketem: "+value)
-  //priceTab.push(price)
- // // table=[name,price,1]
- // // console.log(table)
+  priceMap.set(nazwa,cos)
 
   var row = document.createElement('tr')
   var td1 = document.createElement('td')
   var td2 = document.createElement('td')
   var td3 = document.createElement('td')
-  td1.innerHTML = name
+  td1.innerHTML = nazwa
   td2.innerHTML = cos
-  td3.innerHTML = "<input id=\"count\" type=\"number\" min=\"0\" name=\"input\" placeholder=\"1\" style=\"width:50px; height:20px\" value='1' ' onchange='countBasket(name,cos,value)'>"
+  td3.innerHTML = "<input id=\"count\" name=\""+nazwa+ "\" type=\"number\" min=\"0\" placeholder=\"1\" style=\"width:50px; height:20px\" value='1'  onchange=\"countBasket(name,cos,value)\">"
 
   row.appendChild(td1)
   row.appendChild(td2)
@@ -60,6 +81,7 @@ function call () {
   $('#basket')
     .find('tbody').append($row)
     .trigger('addRows', [$row, resort])
+
   return false
 }
 
@@ -174,6 +196,7 @@ function nameValidation () {
 //   console.log(price)
 //
 // }
+
 
 function countBrutto() {
   var price = parseFloat(document.getElementById('price').value);

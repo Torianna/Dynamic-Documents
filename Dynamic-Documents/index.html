@@ -24,6 +24,56 @@
     <script type="text/javascript">
 
 
+
+      $(document).on("click", ".add", function(){
+        var empty = false;
+        var input = $(this).parents("tr").find('input[type="text"]');
+        input.each(function(){
+          if(!$(this).val()){
+            $(this).addClass("error");
+            empty = true;
+          } else{
+            $(this).removeClass("error");
+          }
+        });
+
+        $(this).parents("tr").find(".error").first().focus();
+        if(!empty){
+          input.each(function(){
+            $(this).parent("td").html($(this).val());
+          });
+          $(this).parents("tr").find(".add, .edit").toggle();
+        }
+      });
+      // Edit row on edit button click
+      $(document).on("click", ".edit", function(){
+        $(this).parents("tr").find("td:not(:last-child)").each(function(){
+          $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+        });
+        $(this).parents("tr").find(".edit").toggle();
+        $(this).parents("tr").find(".add").toggle();
+      });
+
+      $(document).unbind("click", ".basket");
+      $(document).on("click", ".basket", function(){
+        var my_table = [] ;
+
+        $(this).parents("tr").find("td:not(:last-child)").each(function() {
+          my_table.push($(this).html())
+
+        });
+        my_table=my_table.toString()
+        localStorage.setItem("row", my_table);
+
+        alert("Add to basket")
+        call()
+      });
+
+      $(document).on("click", ".delete", function(){
+        $(this).parents("tr").remove();
+      });
+
+
       $(function () {
         var nameArray = new Set([])
 
@@ -88,54 +138,9 @@
           td9.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
             "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" +
             "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none \"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>"
-            + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\" onclick='call()'><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
+            + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\"><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
 
 
-          $(document).on("click", ".add", function(){
-            var empty = false;
-            var input = $(this).parents("tr").find('input[type="text"]');
-            input.each(function(){
-              if(!$(this).val()){
-                $(this).addClass("error");
-                empty = true;
-              } else{
-                $(this).removeClass("error");
-              }
-            });
-
-            $(this).parents("tr").find(".error").first().focus();
-            if(!empty){
-              input.each(function(){
-                $(this).parent("td").html($(this).val());
-              });
-              $(this).parents("tr").find(".add, .edit").toggle();
-            }
-          });
-            // Edit row on edit button click
-          $(document).on("click", ".edit", function(){
-            $(this).parents("tr").find("td:not(:last-child)").each(function(){
-              $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-            });
-            $(this).parents("tr").find(".edit").toggle();
-            $(this).parents("tr").find(".add").toggle();
-          });
-
-          $(document).on("click", ".basket", function(){
-             var my_table = [] ;
-
-            $(this).parents("tr").find("td:not(:last-child)").each(function() {
-                my_table.push($(this).html())
-
-            });
-            my_table=my_table.toString()
-            localStorage.setItem("row", my_table);
-            console.log(localStorage.getItem("row"))
-            alert("Add to basket")
-          });
-
-          $(document).on("click", ".delete", function(){
-            $(this).parents("tr").remove();
-          });
 
           row.appendChild(td1)
           row.appendChild(td2)
@@ -225,7 +230,7 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Delivery</label>
-                            <select class="form-control">
+                            <select id="delivery" class="form-control" onclick="countPriceMap()">
                                 <option selected value="10">Post - 10zł</option>
                                 <option value="15">Courier - 15zł</option>
                                 <option value="0">Personal Pickup - 0zł</option>
@@ -233,14 +238,14 @@
                         </div>
                             <div class="form-group">
                                 <label>Summary:</label>
-                                <input id="summary" name="due" placeholder="Summary"
+                                <input id="summary" name="due" placeholder=" "
                                        disabled>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" value="Submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" value="Submit" class="btn btn-primary">Buy</button>
                     </div>
                 </div>
             </div>
