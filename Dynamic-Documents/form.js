@@ -9,7 +9,7 @@ window.onload = function() {
 var cos;
 var suma;
 var sel;
-
+var products;
 // function sumRow() {
 //   var my_table = [] ;
 //
@@ -53,6 +53,13 @@ function countPriceMap () {
 //   document.getElementById('summary').value = suma;
 // }
 
+function buy () {
+
+  localStorage.removeItem(products)
+  alert("Transaction complited")
+
+}
+
 
 function call () {
   var my_table=localStorage.getItem("row");
@@ -61,6 +68,10 @@ function call () {
   var nazwa=table[0]
   cos=table[4]
   priceMap.set(nazwa,cos)
+
+  localStorage.setItem("product", JSON.stringify(my_table));
+
+  products = JSON.parse(localStorage.getItem("product"));
 
   var row = document.createElement('tr')
   var td1 = document.createElement('td')
