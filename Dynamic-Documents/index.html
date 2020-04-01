@@ -24,90 +24,91 @@
     <script type="text/javascript">
 
 
-
-      $(document).on("click", ".add", function(){
-        var empty = false;
-        var input = $(this).parents("tr").find('input[type="text"]');
-        input.each(function(){
-          if(!$(this).val()){
-            $(this).addClass("error");
-            empty = true;
-          } else{
-            $(this).removeClass("error");
+      $(document).on('click', '.add', function () {
+        var empty = false
+        var input = $(this).parents('tr').find('input[type="text"]')
+        input.each(function () {
+          if (!$(this).val()) {
+            $(this).addClass('error')
+            empty = true
+          } else {
+            $(this).removeClass('error')
           }
-        });
+        })
 
-        $(this).parents("tr").find(".error").first().focus();
-        if(!empty){
-          input.each(function(){
-            $(this).parent("td").html($(this).val());
-          });
-          $(this).parents("tr").find(".add, .edit").toggle();
+        $(this).parents('tr').find('.error').first().focus()
+        if (!empty) {
+          input.each(function () {
+            $(this).parent('td').html($(this).val())
+          })
+          $(this).parents('tr').find('.add, .edit').toggle()
         }
-      });
+      })
       // Edit row on edit button click
-      $(document).on("click", ".edit", function(){
-        $(this).parents("tr").find("td:not(:last-child)").each(function(){
-          $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-        });
-        $(this).parents("tr").find(".edit").toggle();
-        $(this).parents("tr").find(".add").toggle();
-      });
+      $(document).on('click', '.edit', function () {
+        $(this).parents('tr').find('td:not(:last-child)').each(function () {
+          $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">')
+        })
+        $(this).parents('tr').find('.edit').toggle()
+        $(this).parents('tr').find('.add').toggle()
+      })
 
-      $(document).unbind("click", ".basket");
-      $(document).on("click", ".basket", function(){
-        var my_table = [] ;
+      $(document).unbind('click', '.basket')
+      $(document).on('click', '.basket', function () {
+        var my_table = []
 
-        $(this).parents("tr").find("td:not(:last-child)").each(function() {
+        $(this).parents('tr').find('td:not(:last-child)').each(function () {
           my_table.push($(this).html())
 
-        });
-        my_table=my_table.toString()
-        localStorage.setItem("row", my_table);
+        })
+        my_table = my_table.toString()
+        localStorage.setItem('row', my_table)
 
-        alert("Add to basket")
+        alert('Add to basket')
         call()
-      });
+      })
 
-      $(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-      });
+      $(document).on('click', '.delete', function () {
+        $(this).parents('tr').remove()
+      })
 
 
       $(function () {
         var nameArray = new Set([])
 
-        $('#products').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
+        $('#products').tablesorter({
+          theme: 'bootstrap', sortList: [[3, 1], [0, 0]], widgets: ['zebra'], filter_columnFilters: true
         })
 
-        $('#basket').tablesorter({ theme: 'bootstrap', sortList: [[3, 1], [0, 0]],  widgets: ["zebra"],filter_columnFilters: true
+        $('#basket').tablesorter({
+          theme: 'bootstrap', sortList: [[3, 1], [0, 0]], widgets: ['zebra'], filter_columnFilters: true
         })
 
-        $('#priceLow').click(function() {
+        $('#priceLow').click(function () {
           // $('#products').find('th:eq(2)').trigger("sort",{lockedOrder: 'asc'});
           // $("#products").tablesorter({ sortList: [[0,0],});
-          $('#products').trigger("sorton",[[[2,0]]]);
-        });
+          $('#products').trigger('sorton', [[[2, 0]]])
+        })
 
-        $('#priceHigh').click(function() {
-          $('#products').trigger("sorton",[[[2,1]]]);
-        });
+        $('#priceHigh').click(function () {
+          $('#products').trigger('sorton', [[[2, 1]]])
+        })
 
-        $('#rateLow').click(function() {
-          $('#products').trigger("sorton",[[[6,0]]]);
-        });
+        $('#rateLow').click(function () {
+          $('#products').trigger('sorton', [[[6, 0]]])
+        })
 
-        $('#rateHigh').click(function() {
-          $('#products').trigger("sorton",[[[6,1]]]);
-        });
+        $('#rateHigh').click(function () {
+          $('#products').trigger('sorton', [[[6, 1]]])
+        })
 
-        $('#nameLow').click(function() {
-          $('#products').trigger("sorton",[[[0,0]]]);
-        });
+        $('#nameLow').click(function () {
+          $('#products').trigger('sorton', [[[0, 0]]])
+        })
 
-        $('#nameHigh').click(function() {
-          $('#products').trigger("sorton",[[[0,1]]]);
-        });
+        $('#nameHigh').click(function () {
+          $('#products').trigger('sorton', [[[0, 1]]])
+        })
         // Add two new rows using the "addRows" method
         // the "update" method doesn't work here because not all
         // rows are present in the table when the pager is applied
@@ -135,11 +136,10 @@
           td8.innerHTML = document.getElementById('photo').value
 
 
-          td9.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
-            "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" +
-            "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none \"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>"
-            + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\"><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
-
+          td9.innerHTML = '<a class="delete" title="Delete" data-toggle="tooltip" style="margin-right: 20px"><i class="fas fa-trash-alt" style="color: red" ></i></a>\n' +
+            '<a class="edit" title="Edit" data-toggle="tooltip" style="margin-right: 20px"><i class="fas fa-edit" style="color: orange"></i></a>\n' +
+            '<a class="add" title="Add" data-toggle="tooltip" style="display:none "><i class="fas fa-plus" style="color: green" ></i></a>'
+            + '<a class="basket" title="Basket" data-toggle="tooltip"><i class="fas fa-shopping-basket" style="color: blue" ></i></a>'
 
 
           row.appendChild(td1)
@@ -214,28 +214,28 @@
                         </button>
                     </div>
 
-                    <div class="modal-body" >
+                    <div class="modal-body">
                         <form>
-                        <table class="tablesorter table table-hover" id="basket" >
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Count</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                            <table class="tablesorter table table-hover" id="basket">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
 
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Delivery</label>
-                            <select id="delivery" class="form-control" onclick="countPriceMap()">
-                                <option selected value="10">Post - 10zł</option>
-                                <option value="15">Courier - 15zł</option>
-                                <option value="0">Personal Pickup - 0zł</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Delivery</label>
+                                <select id="delivery" class="form-control" onclick="countPriceMap()">
+                                    <option selected value="10">Post - 10zł</option>
+                                    <option value="15">Courier - 15zł</option>
+                                    <option value="0">Personal Pickup - 0zł</option>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label>Summary:</label>
                                 <input id="summary" name="due" placeholder=" "
@@ -370,31 +370,36 @@
 
 <br>
 
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Table filters
-        <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-        <li><a href="#" id="priceLow">Price from lowest</a></li>
-        <li><a href="#" id="priceHigh">Price from highest</a></li>
-        <li><a href="#" id="rateLow">Rate from lowest</a></li>
-        <li><a href="#" id="rateHigh">Rate from highest</a></li>
-        <li><a href="#" id="nameLow">Name from A</a></li>
-        <li><a href="#" id="nameHigh">Name from Z</a></li>
-    </ul>
+<div class="buttons">
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Table filters
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" id="priceLow">Price from lowest</a></li>
+            <li><a href="#" id="priceHigh">Price from highest</a></li>
+            <li><a href="#" id="rateLow">Rate from lowest</a></li>
+            <li><a href="#" id="rateHigh">Rate from highest</a></li>
+            <li><a href="#" id="nameLow">Name from A</a></li>
+            <li><a href="#" id="nameHigh">Name from Z</a></li>
+        </ul>
+    </div>
+
+    <button class="btn btn-success" onclick="getProducts()">Get json data</button>
 </div>
 
 
-<table class="tablesorter table table-hover" id="products" >
+<table class="tablesorter table table-hover" id="products">
     <thead>
     <tr>
         <th scope="col">Name</th>
         <th scope="col" data-sorter="false">Code</th>
         <th scope="col" id="netto">Netto</th>
-        <th scope="col"data-sorter="false">VAT</th>
-        <th scope="col"data-sorter="false">Brutto</th>
-        <th scope="col"data-sorter="false">Category</th>
+        <th scope="col" data-sorter="false">VAT</th>
+        <th scope="col" data-sorter="false">Brutto</th>
+        <th scope="col" data-sorter="false">Category</th>
         <th scope="col">Rate</th>
-        <th scope="col"data-sorter="false">Photo</th>
+        <th scope="col" data-sorter="false">Photo</th>
         <th scope="col" data-sorter="false">Actions</th>
     </tr>
     </thead>

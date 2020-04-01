@@ -44,14 +44,50 @@ function countPriceMap () {
   suma=0
 }
 
+function getProducts () {
 
-// function sumBasket () {
-//   countPriceMap()
-//   sel=document.getElementById('delivery').value
-//   suma+=parseFloat(sel)
-//   console.log("suma + sel"+suma)
-//   document.getElementById('summary').value = suma;
-// }
+
+   fetch("products.json")
+     .then(function (resp) {
+       return resp.json();
+       
+     })
+     .then(function (data) {
+       console.log(data)
+       for (i in data.rows) {
+          var row = document.createElement('tr')
+         wiersz = data.rows[i];
+
+         for (i in wiersz) {
+            var td1 = document.createElement('td')
+            td1.innerHTML = wiersz[i]
+            row.appendChild(td1)
+
+         }
+         var td3 = document.createElement('td')
+
+         td3.innerHTML = "<a class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-trash-alt\" style=\"color: red\" ></i></a>\n" +
+           "<a class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\" style=\"margin-right: 20px\"><i class=\"fas fa-edit\" style=\"color: orange\"></i></a>\n" +
+           "<a class=\"add\" title=\"Add\" data-toggle=\"tooltip\" style=\"display:none \"><i class=\"fas fa-plus\" style=\"color: green\" ></i></a>"
+           + "<a class=\"basket\" title=\"Basket\" data-toggle=\"tooltip\"><i class=\"fas fa-shopping-basket\" style=\"color: blue\" ></i></a>";
+
+         row.appendChild(td3)
+          $row = $(row),
+         //   // resort table using the current sort; set to false to prevent resort, otherwise
+         //   // any other value in resort will automatically trigger the table resort.
+            resort = true
+          $('#products')
+            .find('tbody').append($row)
+           .trigger('addRows', [$row, resort])
+
+
+
+       }
+       return false
+
+     })
+}
+
 
 function buy () {
 

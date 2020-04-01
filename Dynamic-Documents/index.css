@@ -8,3 +8,9 @@
 .modal-backdrop {
     z-index: 1020!important;
 }
+
+.buttons
+{
+    display: flex;
+    flex-direction: row;
+}
