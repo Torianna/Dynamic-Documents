@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <!-- Demo stuff -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="css/theme.bootstrap_4.css">
@@ -20,6 +22,7 @@
     <script src="jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="jquery.tablesorter.js"></script>
     <script type="text/javascript" src="jquery.tablesorter.widgets.js"></script>
+    <script src="widget-view.js"></script>
 
     <script type="text/javascript">
 
@@ -76,8 +79,61 @@
       $(function () {
         var nameArray = new Set([])
 
+        var template = '<li class="clearfix">' +
+          '<section class="left">' +
+          '<img src=\"{col7}\" width="200"\n' +
+          '         height="80">'+
+          '<h3>{col0}</h3>' +
+          '<p>{col2} zł Netto</p>' +
+          '<p>({col4} zł Brutto) </p>'
+          '</section>' +
+          '<section class="right">' +
+          '<span class="price">{col4}</span>' +
+          '<span class="darkview">' +
+          '<button type="button" class="mybutton nohover" title="Read More..." >More</button>' +
+          '<button type="button" class="mybutton nohover active" title="Add to Cart" >Add To Cart</button>' +
+          '</span>' +
+          '</section>' +
+          '</li>',
+
+          views = {
+            grid: {
+              icon: 'fa fa-th',
+              title: 'GridView',
+              container: '<ul>',
+              tmpl: template
+            },
+
+            table: {
+              icon: 'fa fa-table',
+              title: 'Orignal TableSorter View',
+              raw: true
+            }
+
+          };
+
+        // $('#products').tablesorter({
+        //   theme: 'blue',
+        //   widthFixed: true,
+        //   sortList: [[1, 0]],
+        //   widgets: ['zebra',  'view'],
+        //   widgetOptions: {
+        //     filter_external: '#tablesearch',
+        //     filter_columnFilters: false,
+        //
+        //
+        //     view_layout: 'list',
+        //     view_layouts: views
+        //   }
+        // });
+
         $('#products').tablesorter({
-          theme: 'bootstrap', sortList: [[3, 1], [0, 0]], widgets: ['zebra'], filter_columnFilters: true
+          theme: 'bootstrap', sortList: [[3, 1], [0, 0]], widgets: ['zebra', 'view'],
+          widgetOptions:{
+            filter_columnFilters:true,
+            view_layout: 'grid',
+            view_layouts: views
+          }
         })
 
         $('#basket').tablesorter({
@@ -133,7 +189,8 @@
           td5.innerHTML = document.getElementById('brutto').value
           td6.innerHTML = document.getElementById('category').value
           td7.innerHTML = document.querySelector('[name="inlineRadioOptions"]:checked').value
-          td8.innerHTML = document.getElementById('photo').value
+          //td8.innerHTML = document.getElementById('photo').value
+          td8.innerHTML="<img src=\""+document.getElementById('photo').value+"\">"
 
 
           td9.innerHTML = '<a class="delete" title="Delete" data-toggle="tooltip" style="margin-right: 20px"><i class="fas fa-trash-alt" style="color: red" ></i></a>\n' +
@@ -388,6 +445,15 @@
     <button class="btn btn-success" onclick="getProducts()">Get json data</button>
 </div>
 
+<div>
+    <div id="viewHeader">
+        <section class="right">
+            <input type="search" id="tablesearch" placeholder="Search..." data-column="1,2,3">
+            <div id="ts-view-toolbar"></div>
+        </section>
+    </div>
+    <div id="ts-view"></div>
+</div>
 
 <table class="tablesorter table table-hover" id="products">
     <thead>
