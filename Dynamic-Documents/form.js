@@ -195,12 +195,6 @@ function vatValidation () {
 function priceValidation(){
   var price = document.getElementById("price");
   var priceRegex= new RegExp("[0-9]+(.[0-9]){0,2}");
-  var value = Number(price.value);
-  // var res = price.value.split(".");
-  //
-  // if(res.length == 1 || res[1].length < 3) {
-  //   price.value = value.toFixed(2);
-  // }
 
   if(price.value == "") {
     document.getElementById("priceStatus").innerHTML = "Price filed is required!";
@@ -218,8 +212,12 @@ function priceValidation(){
     document.getElementById("priceStatus").innerHTML = "<span style='color: green;'>Success</span>";
     document.getElementById("price").className = "form-control is-valid";
     document.getElementById("priceStatus").style.display = "block";
+    if(price.value.indexOf(".")===-1)
+    {price.value=`${price.value}.00`}
     return true;
   }
+
+
 }
 
 function codeValidation () {
