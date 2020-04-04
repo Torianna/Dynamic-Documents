@@ -39,7 +39,7 @@ function countPriceMap () {
 function getProducts () {
 
 
-   fetch("products.json")
+   fetch("product.json")
      .then(function (resp) {
        return resp.json();
        
@@ -58,7 +58,8 @@ function getProducts () {
 
          }
          var td2 = document.createElement('td')
-         td2.innerHTML = "<img src=\""+wiersz[wiersz.length]+"\">"
+         td2.innerHTML = "<img src=\""+wiersz[wiersz.length-1]+"\" onerror=\" this.src = 'error.jpg'\" class='image'>"
+
          row.appendChild(td2)
 
          var td3 = document.createElement('td')
