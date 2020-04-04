@@ -94,6 +94,7 @@ function buy () {
 }
 
 
+//dodawanie produktów do koszyka
 function call () {
   var my_table=localStorage.getItem("row");
   localStorage.removeItem("row")
@@ -148,22 +149,43 @@ function checkForm() {
   return valid;
 }
 
+
+function categoryValidation()
+{
+  document.getElementById("categoryStatus").innerHTML = "<span style='color: green;'>Success</span>";
+  document.getElementById("category").className = "form-control is-valid";
+  document.getElementById("categoryStatus").style.display = "block";
+  return false;
+}
+
+function optionValidation()
+{
+  document.getElementById("optionStatus").innerHTML = "<span style='color: green;'>Success</span>";
+  document.getElementById("option").className = "form-control is-valid";
+  document.getElementById("optionStatus").style.display = "block";
+  return false;
+}
+
 function vatValidation () {
   var vat = document.getElementById("vat");
   var vatRegex= new RegExp("[0-9]+(.[0-9]){0,2}");
 
   if(vat.value == "") {
     document.getElementById("vatStatus").innerHTML = "VAT filed is required!";
+    document.getElementById("vat").className = "form-control is-invalid";
     document.getElementById("vatStatus").style.display = "block";
     return false;
   } else if(!vatRegex.test(vat.value))
   {
     document.getElementById("vatStatus").innerHTML = "VAT must have contain numbers";
+    document.getElementById("vat").className = "form-control is-invalid";
     document.getElementById("vatStatus").style.display = "block";
     return false;
   }
   else {
-    document.getElementById("vatStatus").style.display = "none";
+    document.getElementById("vatStatus").innerHTML = "<span style='color: green;'>Success</span>";
+    document.getElementById("vat").className = "form-control is-valid";
+    document.getElementById("vatStatus").style.display = "block";
     return true;
   }
 }
@@ -173,24 +195,28 @@ function priceValidation(){
   var price = document.getElementById("price");
   var priceRegex= new RegExp("[0-9]+(.[0-9]){0,2}");
   var value = Number(price.value);
-  var res = price.value.split(".");
-
-  if(res.length == 1 || res[1].length < 3) {
-    price.value = value.toFixed(2);
-  }
+  // var res = price.value.split(".");
+  //
+  // if(res.length == 1 || res[1].length < 3) {
+  //   price.value = value.toFixed(2);
+  // }
 
   if(price.value == "") {
     document.getElementById("priceStatus").innerHTML = "Price filed is required!";
+    document.getElementById("price").className = "form-control is-invalid";
     document.getElementById("priceStatus").style.display = "block";
     return false;
   } else if(!priceRegex.test(price.value))
   {
     document.getElementById("priceStatus").innerHTML = "Price must have contain numbers";
+    document.getElementById("price").className = "form-control is-invalid";
     document.getElementById("priceStatus").style.display = "block";
     return false;
   }
   else {
-    document.getElementById("priceStatus").style.display = "none";
+    document.getElementById("priceStatus").innerHTML = "<span style='color: green;'>Success</span>";
+    document.getElementById("price").className = "form-control is-valid";
+    document.getElementById("priceStatus").style.display = "block";
     return true;
   }
 }
@@ -200,16 +226,20 @@ function codeValidation () {
   var codeRegex = new RegExp("[0-9a-zA-Z]{2}\-[0-9a-zA-Z]{2}")
   if(code.value == "") {
     document.getElementById("codeStatus").innerHTML = "Code filed is required!";
+    document.getElementById("code").className = "form-control is-invalid";
     document.getElementById("codeStatus").style.display = "block";
     return false;
   } else if(!codeRegex.test(code.value))
   {
     document.getElementById("codeStatus").innerHTML = "Code must have format XX-XX (letters and numbers)\"";
+    document.getElementById("code").className = "form-control is-invalid";
     document.getElementById("codeStatus").style.display = "block";
     return false;
   }
   else {
-    document.getElementById("codeStatus").style.display = "none";
+    document.getElementById("codeStatus").innerHTML = "<span style='color: green;'>Success</span>";
+    document.getElementById("code").className = "form-control is-valid";
+    document.getElementById("codeStatus").style.display = "block";
     return true;
   }
 
@@ -221,25 +251,24 @@ function nameValidation () {
 
   if(name.value == "") {
     document.getElementById("nameStatus").innerHTML = "Name filed is required!";
+    document.getElementById("name").className = "form-control is-invalid";
     document.getElementById("nameStatus").style.display = "block";
     return false;
   } else if(!regexName.test(name.value))
   {
     document.getElementById("nameStatus").innerHTML = "Name contains invalid characters ( 10 letters and spaces only!)";
+    document.getElementById("name").className = "form-control is-invalid";
     document.getElementById("nameStatus").style.display = "block";
     return false;
   }
   else {
-    document.getElementById("nameStatus").style.display = "none";
+    document.getElementById("nameStatus").innerHTML = "<span style='color: green;'>Success</span>";
+    document.getElementById("name").className = "form-control is-valid";
+    document.getElementById("nameStatus").style.display = "block";
     return true;
   }
-}
 
-// function countBasket () {
-//   var price = parseFloat(document.getElementById('price1').value);
-//   console.log(price)
-//
-// }
+}
 
 
 function countBrutto() {

@@ -80,9 +80,7 @@
         var nameArray = new Set([])
 
         var template = '<li class="clearfix">' +
-          '<section class="left">' +
-          '<img src=\"{col7}\" width="200"\n' +
-          '         height="80">'+
+          '<section class="left">{col7}'+
           '<h3>{col0}</h3>' +
           '<p>{col2} zł Netto</p>' +
           '<p>({col4} zł Brutto) </p>'
@@ -112,20 +110,6 @@
 
           };
 
-        // $('#products').tablesorter({
-        //   theme: 'blue',
-        //   widthFixed: true,
-        //   sortList: [[1, 0]],
-        //   widgets: ['zebra',  'view'],
-        //   widgetOptions: {
-        //     filter_external: '#tablesearch',
-        //     filter_columnFilters: false,
-        //
-        //
-        //     view_layout: 'list',
-        //     view_layouts: views
-        //   }
-        // });
 
         $('#products').tablesorter({
           theme: 'bootstrap', sortList: [[3, 1], [0, 0]], widgets: ['zebra', 'view'],
@@ -326,6 +310,7 @@
                         <label for="name">Name</label>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Enter name"
                                aria-describedby="nameStatus" required onblur="nameValidation()">
+<!--                        <div class="invalid-feedback"  id="a"></div>-->
                         <span id="nameStatus" class="errorHeader">Name filed is required!</span>
                     </div>
                     <div class="form-group">
@@ -336,15 +321,16 @@
                     </div>
                     <div class="form-group">
                         <label for="price">Netto price</label>
-                        <input id="price" name="price" type="number" class="form-control"
+                        <input id="price" name="price" type="text" class="form-control"
                                placeholder="Enter netto price" required aria-describedby="priceStatus"
-                               onblur="priceValidation()" onchange="countBrutto()">
+                               onblur="priceValidation()" onblur="countBrutto()">
                         <span id="priceStatus" class="errorHeader">Price filed is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="vat">VAT(%)</label>
                         <input id="vat" name="vat" type="number" class="form-control" placeholder="Enter VAT value"
                                required aria-describedby="vatStatus" onblur="vatValidation()" onchange="countBrutto()">
+                        <div class="invalid-feedback"  id="d"></div>
                         <span id="vatStatus" class="errorHeader">VAT filed is required!</span>
                     </div>
                     <div class="form-group">
@@ -354,21 +340,23 @@
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <select id="category" class="form-control" id="exampleFormControlSelect1" required>
+                        <select id="category" class="form-control" id="exampleFormControlSelect1" onblur="categoryValidation()" required>
                             <option>Book</option>
                             <option>Music</option>
                             <option>Film</option>
                         </select>
+                        <span id="categoryStatus" class="errorHeader"></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect2">Options</label>
-                        <select multiple class="form-control" id="exampleFormControlSelect2" required>
+                        <select multiple class="form-control" id="exampleFormControlSelect2" onchange="optionValidation()" required>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
                             <option>5</option>
                         </select>
+                        <span id="optionStatus" class="errorHeader"></span>
                     </div>
                     <div class="form-group">
                         <label>Rate </label>
