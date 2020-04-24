@@ -154,6 +154,12 @@
         // rows are present in the table when the pager is applied
         $('#submit').click(function () {
 
+          if(!checkForm())
+          {
+            console.log("cos nie tak")
+            return false
+          }
+
 
           var row = document.createElement('tr')
           var td1 = document.createElement('td')
@@ -174,7 +180,7 @@
           td6.innerHTML = document.getElementById('category').value
           td7.innerHTML = document.querySelector('[name="inlineRadioOptions"]:checked').value
           //td8.innerHTML = document.getElementById('photo').value
-          td8.innerHTML="<img src=\""+document.getElementById('photo').value+"\">"
+          td8.innerHTML="<img src=\""+document.getElementById('photo').value+"\" onerror=\" this.src = 'error.jpg'\" class='image' >"
 
 
           td9.innerHTML = '<a class="delete" title="Delete" data-toggle="tooltip" style="margin-right: 20px"><i class="fas fa-trash-alt" style="color: red" ></i></a>\n' +

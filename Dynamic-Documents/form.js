@@ -1,8 +1,4 @@
 window.onload = function() {
-  document.myform.onsubmit = function()  { return checkForm(); }
-  // document.myform.lastNameInput.onblur = lastNameValidate;
-  // document.getElementById("emailInput").onblur = emailValidate;
-  // document.getElementById("informationInput").onblur = function() { informationValidate(); };
   document.getElementById('summary').value = " ";
 }
 //var nazwa;
@@ -10,8 +6,6 @@ var cos;
 var suma;
 var sel;
 var products;
-
-// }
 var priceMap = new Map();
 
 function countBasket (name,cos,count) {
@@ -31,7 +25,6 @@ function countPriceMap () {
   }
   sel=document.getElementById('delivery').value
   suma+=parseFloat(sel)
-  console.log("suma + sel"+suma)
   document.getElementById('summary').value = suma;
   suma=0
 }
@@ -88,8 +81,10 @@ function getProducts () {
 
 
 function buy () {
-
+  $('#basket')
+    .find('tbody').remove()
   localStorage.removeItem(products)
+  $('#exampleModal').modal('toggle')
   alert("Transaction complited")
 
 }
@@ -136,17 +131,12 @@ function checkForm() {
 
   var valid = true;
 
-  // var emailInput = document.getElementById("emailInput");
-  // var informationInput = document.getElementById("informationInput");
-  // var paymantAmountInput = document.getElementById("paymantAmountInput");
-
   if(!nameValidation()) valid = false;
   if(!codeValidation()) valid = false;
   if(!priceValidation()) valid = false;
   if(!vatValidation()) valid = false;
-  // if(!paymentValidate()) valid = false;
+ // if(!categoryValidation()) valid=false;
 
-  //alert(valid);
   return valid;
 }
 
